@@ -5,7 +5,7 @@ export const MultipleCustomHooks = () => {
     "https://www.breakingbadapi.com/api/quotes"
   );
 
-  console.log(data, isLoading, hasError);
+  //   console.log(data, isLoading, hasError);
   return (
     <>
       <h1>BreakingBad Quotes</h1>
@@ -21,6 +21,8 @@ export const MultipleCustomHooks = () => {
           </blockquote>
         ))
       )}
+
+      <button className="btn btn-primary">Next Quote</button>
     </>
   );
 };
