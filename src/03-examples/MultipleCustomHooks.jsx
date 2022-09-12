@@ -1,28 +1,25 @@
-import { useFetch } from "../hooks/useFetch";
+import { useFetch, useCounter } from "../hooks";
+import { LoadingQuote } from "./LoadingQuote";
+import { Quote } from "./Quote";
 
 export const MultipleCustomHooks = () => {
-  const { data, isLoading, hasError } = useFetch(
-    "https://www.breakingbadapi.com/api/quotes"
+  const { counter, incrementCounter } = useCounter(1);
+  const { data, isLoading } = useFetch(
+    `https://www.breakingbadapi.com/api/quotes/${counter}`
   );
+  const { quote, author } = !!data && data[0];
 
-  //   console.log(data, isLoading, hasError);
   return (
     <>
       <h1>BreakingBad Quotes</h1>
       <hr />
 
-      {isLoading ? (
-        <div className="alert alert-info text-center">Loading...</div>
-      ) : (
-        data.map(({ quote, author }) => (
-          <blockquote className="blockquote text-end">
-            <p className="mb-1">{quote}</p>
-            <footer className="blockquote-footer">{author}</footer>
-          </blockquote>
-        ))
-      )}
+      {isLoading ? <LoadingQuote /> : <Quote author={ author } quote={ quote } />}
 
-      <button className="btn btn-primary">Next Quote</button>
+      {/* IncrementCounter recibe un valor como argumento pero aca solo le estoy pidiendo que ejecute la funcion sin el valor */}
+      <button onClick={() => incrementCounter()} className="btn btn-primary">
+        Next Quote
+      </button>
     </>
   );
 };

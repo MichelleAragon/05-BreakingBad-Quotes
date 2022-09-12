@@ -8,6 +8,7 @@ export const useFetch = (url) => {
   });
 
   const getFetch = async () => {
+    
     setState({
       ...state,
       isLoading: true,
@@ -23,13 +24,15 @@ export const useFetch = (url) => {
     });
   };
 
-  useEffect(() => {
+useEffect(() => {
     getFetch();
-  }, []);
+  
+}, [url])
+
 
   return {
     data: state.data,
     isLoading: state.isLoading,
     hasError: state.hasError,
   }
-};
+}
